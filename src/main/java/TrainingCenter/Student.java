@@ -96,7 +96,7 @@ public class Student {
 
     public LocalDateTime calculateFinishDate() {
 
-        if(program.getDurationInHours() == 0){
+        if (program.getDurationInHours() == 0) {
             return startDate;
         }
 
@@ -105,7 +105,7 @@ public class Student {
         int remainingDays = program.getDurationInHours() / WORKING_HOURS;
         int remainingHours = program.getDurationInHours() % WORKING_HOURS;
 
-        if (remainingHours == 0) {
+        if (remainingHours == 0 && startDate.getHour() == 10 && startDate.getMinute() == 0) {
             remainingDays = remainingDays == 0 ? remainingDays : remainingDays - 1;
             remainingHours += WORKING_HOURS;
         }
@@ -123,6 +123,10 @@ public class Student {
 
         programFinishDate = programFinishDate.plusHours(remainingHours);
 
+        if (programFinishDate.getHour() >= 18 && !(programFinishDate.getHour() == 18 && programFinishDate.getMinute() == 0)) {
+            programFinishDate.plusDays(1);
+            programFinishDate.minusHours(8);
+        }
         return programFinishDate;
     }
 
