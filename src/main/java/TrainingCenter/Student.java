@@ -124,8 +124,20 @@ public class Student {
         programFinishDate = programFinishDate.plusHours(remainingHours);
 
         if (programFinishDate.getHour() >= 18 && !(programFinishDate.getHour() == 18 && programFinishDate.getMinute() == 0)) {
-            programFinishDate.plusDays(1);
-            programFinishDate.minusHours(8);
+            programFinishDate = programFinishDate.plusDays(1);
+            programFinishDate = programFinishDate.minusHours(8);
+        }
+
+        if(programFinishDate.getHour() == 0)
+        {
+            programFinishDate = programFinishDate.plusHours(16);
+        }
+
+        if (programFinishDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
+            programFinishDate = programFinishDate.plusDays(2);
+        }
+        if (programFinishDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            programFinishDate = programFinishDate.plusDays(1);
         }
         return programFinishDate;
     }
